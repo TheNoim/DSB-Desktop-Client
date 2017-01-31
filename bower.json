@@ -1,0 +1,32 @@
+{
+  "name": "DSB-Desktop-Client",
+  "description": "A dsb desktop client",
+  "main": "src/main.js",
+  "authors": [
+    "Noim <nilsbergmann@noim.io>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "DSB",
+    "iServ",
+    "electron",
+    "Desktop"
+  ],
+  "homepage": "https://github.com/TheNoim/DSB-Desktop-Client",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.1.1",
+    "socket.io-client": "^1.7.2",
+    "angular-material-data-table": "^0.10.10",
+    "percentage-calc": "^0.0.1",
+    "material-design-icons": "^3.0.1"
+  }
+}

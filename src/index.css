@@ -1,0 +1,28 @@
+.md-bar{
+    background-color: #FFEB3B !important;
+}
+.md-progress-linear{
+    background-color: #424242 !important;
+}
+.md-container{
+    background-color: #424242 !important;
+}
+
+tr:nth-child(even) {
+    background-color: #212121;
+}
+
+tr:nth-child(odd) {
+    background-color: #424242;
+}
+
+th {
+    background-color: #000000;
+    color: whitesmoke;
+}
+.headercolor {
+    color: whitesmoke !important;
+}
+.cellcolor {
+    color: whitesmoke !important;
+}
