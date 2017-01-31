@@ -1,8 +1,12 @@
 language: node_js
 sudo: required
 dist: trusty
+osx_image: xcode8.2
 node_js:
   - "7.4.0"
+befor_install:
+  - brew update
+  - brew install wine libpng
 install:
   - yarn
   - npm install bower -g
