@@ -1,6 +1,0 @@
-[submodule "src/DSB-Backend"]
-	path = src/DSB-Backend
-	url = https://github.com/TheNoim/DSB-Fast
-[submodule "src/backend"]
-	path = src/backend
-	url = https://github.com/TheNoim/DSB-Fast
