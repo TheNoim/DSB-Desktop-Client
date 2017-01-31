@@ -6,7 +6,7 @@ os:
   - osx
 node_js:
   - "7.4.0"
-befor_install:
+before_install:
   - brew update
   - brew install wine --without-x11
   - brew install libpng mono
