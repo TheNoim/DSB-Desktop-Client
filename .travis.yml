@@ -6,8 +6,8 @@ node_js:
 install:
   - yarn
   - npm install bower -g
-  - node_modules/.bin/bower install
-  - node_modules/.bin/electron-rebuild .
+  - bower install
+  - ./node_modules/.bin/electron-rebuild .
 script:
-  - node_modules/.bin/gulp
-  - node_modules/.bin/build
+  - ./node_modules/.bin/gulp
+  - ./node_modules/.bin/build
