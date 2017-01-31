@@ -5,7 +5,7 @@ node_js:
   - "7.4.0"
 before_install:
   - sudo apt-get update
-  - sudo apt-get install icnsutils libicns-dev imagemagick graphicsmagick xz-utils -y
+  - sudo apt-get install libopenjpeg5 icnsutils libicns-dev imagemagick graphicsmagick xz-utils -y
   - sudo add-apt-repository ppa:jonathonf/wine -y && sudo apt update
   - sudo apt install wine-stable -y
   - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
