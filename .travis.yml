@@ -4,17 +4,13 @@ dist: trusty
 node_js:
   - "7.4.0"
 cache: false  
+os:
+  - osx
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install libjasper1 icnsutils libicns-dev imagemagick graphicsmagick xz-utils -y
-  - sudo add-apt-repository ppa:jonathonf/wine -y && sudo apt update
-  - sudo apt install wine-stable -y
-  - sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32 -y
-  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-  - echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
-  - sudo apt-get update
-  - sudo apt-get install mono-devel mono-complete ca-certificates-mono -y
-  - sudo apt-get install -y gcc-multilib g++-multilib
+  - brew install wine --without-x11
+  - brew install mono
+  - brew install gnu-tar graphicsmagick xz
+  - brew install rpm
 install:
   - yarn
   - npm install bower -g
@@ -22,4 +18,4 @@ install:
   - ./node_modules/.bin/electron-rebuild .
 script:
   - ./node_modules/.bin/gulp
-  - ./node_modules/.bin/build -wl --x64
+  - ./node_modules/.bin/build -mwl --x64
