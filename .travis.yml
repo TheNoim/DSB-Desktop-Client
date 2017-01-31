@@ -4,6 +4,7 @@ dist: trusty
 node_js:
   - "7.4.0"
 cache: false  
+osx_image: xcode8.2
 os:
   - osx
 before_install:
