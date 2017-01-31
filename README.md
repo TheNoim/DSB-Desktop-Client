@@ -1,7 +1,7 @@
 # DSB Desktop Client
 
 
-![Preview Gif](https://github.com/{user}/{repo}/raw/master/Preview.gif)  
+![Preview Gif](https://github.com/TheNoim/DSB-Desktop-Client/raw/master/Preview.gif)  
   
 A desktop client to connect iServ with dsb.  
 
