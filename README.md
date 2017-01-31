@@ -2,6 +2,7 @@
 
 
 ![Preview Gif](https://github.com/TheNoim/DSB-Desktop-Client/raw/master/Preview.gif)  
+[![Build Status](https://travis-ci.org/TheNoim/DSB-Desktop-Client.svg?branch=master)](https://travis-ci.org/TheNoim/DSB-Desktop-Client)  
   
 A desktop client to connect iServ with dsb.  
 
