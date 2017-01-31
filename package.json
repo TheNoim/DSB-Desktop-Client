@@ -2,7 +2,7 @@
   "name": "DSB-Desktop-Client",
   "version": "1.0.0",
   "description": "A dsb desktop client",
-  "main": "src/main.js",
+  "main": "build/main.js",
   "repository": "git@github.com:TheNoim/DSB-Desktop-Client.git",
   "author": "Noim <nilsbergmann@noim.io>",
   "license": "MIT",
@@ -15,6 +15,20 @@
     "electron-is-dev": "^0.1.2",
     "electron-json-storage": "^3.0.1",
     "electron-packager": "^8.5.1",
-    "validator": "^6.2.1"
+    "electron-rebuild": "^1.5.7",
+    "validator": "^6.2.1",
+    "watchjs": "^0.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-inline": "^0.1.3",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-sequence": "^0.4.6",
+    "gulp-uglify": "^2.0.1"
   }
 }

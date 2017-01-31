@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{DSB-Desktop-Client/node_modules}" />
-    <file url="PROJECT" libraries="{DSB-Desktop-Client/node_modules, angular-DefinitelyTyped, angular-material-DefinitelyTyped, async-DefinitelyTyped, electron-DefinitelyTyped, electron-notifications-DefinitelyTyped}" />
+    <file url="PROJECT" libraries="{angular-DefinitelyTyped, angular-material-DefinitelyTyped, async-DefinitelyTyped, electron-DefinitelyTyped, electron-notifications-DefinitelyTyped}" />
     <includedPredefinedLibrary name="ECMAScript 6" />
     <includedPredefinedLibrary name="Node.js Core" />
   </component>
