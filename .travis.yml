@@ -6,7 +6,9 @@ node_js:
   - "7.4.0"
 befor_install:
   - brew update
-  - brew install wine libpng
+  - brew install wine --without-x11
+  - brew install libpng mono
+  - brew install gnu-tar graphicsmagick xz
 install:
   - yarn
   - npm install bower -g
