@@ -14,7 +14,7 @@ const packager = require('electron-packager');
 const fs = require('fs');
 const yarn = require('gulp-yarn');
 
-gulp.task('default', gulpSequence('clean', ['minify-js', 'minify-html', 'copy-components', 'copy-css'], 'inline', ['delete-components', 'delete-js', 'delete-css'], ['copy-md-icons', 'copy-package-json'], 'yarn'));
+gulp.task('default', gulpSequence('clean', ['minify-js', 'minify-html', 'copy-components', 'copy-css'], 'inline', ['delete-components', 'delete-js', 'delete-css'], ['copy-md-icons', 'copy-package-json']));
 
 gulp.task('package', gulpSequence('clean-package', 'build-package'));
 
