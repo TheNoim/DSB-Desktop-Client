@@ -9,10 +9,11 @@ os:
   - linux
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gnu-tar graphicsmagick xz rpm; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo dpkg --add-architecture i386; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y icnsutils graphicsmagick xz-utils; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:ubuntu-wine/ppa -y; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:wine/wine-builds -y; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install wine1.8 winetricks -y; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install winehq-devel winetricks -y; fi
 install:
   - yarn
   - npm install bower -g
