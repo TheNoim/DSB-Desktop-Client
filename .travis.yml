@@ -3,15 +3,11 @@ sudo: required
 dist: trusty
 node_js:
   - "7.4.0"
-cache: false  
 osx_image: xcode8.2
 os:
   - osx
 before_install:
-  - brew install wine --without-x11
-  - brew install mono
-  - brew install gnu-tar graphicsmagick xz
-  - brew install rpm
+  - brew install wine mono gnu-tar graphicsmagick xz rpm
 install:
   - yarn
   - npm install bower -g

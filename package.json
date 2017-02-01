@@ -2,7 +2,7 @@
   "name": "DSB-Desktop-Client",
   "version": "1.0.0",
   "description": "A dsb desktop client",
-  "main": "dist/main.js",
+  "main": "www/main.js",
   "repository": "git@github.com:TheNoim/DSB-Desktop-Client.git",
   "author": "Noim <nilsbergmann@noim.io>",
   "license": "MIT",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "babel-preset-es2015": "^6.22.0",
     "del": "^2.2.2",
+    "electron": "^1.4.15",
     "electron-builder": "^12.0.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -30,7 +31,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^2.0.1",
-    "electron": "^1.4.15"
+    "gulp-yarn": "^0.0.5"
   },
   "build": {
     "productName": "DSB Desktop Client",
@@ -38,6 +39,7 @@
     "icon": "./Icon",
     "files": [
       "**/*",
+      "www/**/*",
       "!src${/*}",
       "!.bowerrc",
       "!bower.json",
@@ -51,8 +53,8 @@
     ],
     "extraFiles": [
       {
-        "from": "dist/",
-        "to": "dist/"
+        "from": "www/",
+        "to": "www/"
       }
     ],
     "iconUrl": "./Icon.ico",
@@ -62,19 +64,23 @@
     "mac": {
       "title": "DSB Client",
       "icon": "./Icon.icns",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "directories": {
-      "buildResources": "./BUILDRESOURCES/",
       "output": "./builds",
-      "app": "./"
+      "app": "www"
     },
     "win": {
       "setupIcon": "./Icon.ico",
       "setupMsi": "SetupDSBClient.msi",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "linux": {
+      "target": "tar.gz",
       "compression": "gz"
     }
   }

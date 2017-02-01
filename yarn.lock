@@ -1569,31 +1569,31 @@ electron-builder-core@11.2.1:
   version "11.2.1"
   resolved "https://registry.yarnpkg.com/electron-builder-core/-/electron-builder-core-11.2.1.tgz#1dca8c1a1cee8b51750b7708a04913aeffacf8a8"
 
-electron-builder-http@12.0.2, electron-builder-http@~12.0.2:
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/electron-builder-http/-/electron-builder-http-12.0.2.tgz#47e83e8646786d93ac0584a694a4a5c021051c28"
+electron-builder-http@12.1.0, electron-builder-http@~12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/electron-builder-http/-/electron-builder-http-12.1.0.tgz#4469498f36a5c7af74a94c637b4d874ca1300b7e"
   dependencies:
     debug "2.6.0"
     fs-extra-p "^3.1.0"
 
-electron-builder-util@12.0.2:
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/electron-builder-util/-/electron-builder-util-12.0.2.tgz#c6f51e3973dc399830f1c75ef03d371843263327"
+electron-builder-util@12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/electron-builder-util/-/electron-builder-util-12.1.0.tgz#2d2ef87ba54710cc35caa1a0d3b80dcc4f52eb30"
   dependencies:
     "7zip-bin" "^2.0.4"
     bluebird-lst-c "^1.0.6"
     chalk "^1.1.3"
     debug "2.6.0"
-    electron-builder-http "~12.0.2"
+    electron-builder-http "~12.1.0"
     fs-extra-p "^3.1.0"
     is-ci "^1.0.10"
     node-emoji "^1.5.1"
-    source-map-support "^0.4.10"
+    source-map-support "^0.4.11"
     stat-mode "^0.2.2"
 
 electron-builder@^12.0.3:
-  version "12.0.3"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-12.0.3.tgz#3e9526ab39c47f9893104662ab94386036f40078"
+  version "12.2.2"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-12.2.2.tgz#f26979e27bd9232acf8f8de720816186ddf36470"
   dependencies:
     "7zip-bin" "^2.0.4"
     asar-electron-builder "^0.13.5"
@@ -1602,8 +1602,8 @@ electron-builder@^12.0.3:
     chromium-pickle-js "^0.2.0"
     cuint "^0.2.2"
     electron-builder-core "11.2.1"
-    electron-builder-http "12.0.2"
-    electron-builder-util "12.0.2"
+    electron-builder-http "12.1.0"
+    electron-builder-util "12.1.0"
     electron-download-tf "3.1.0"
     electron-macos-sign "~1.5.0"
     fs-extra-p "^3.1.0"
@@ -1750,8 +1750,8 @@ electron-rebuild@^1.5.7:
     yargs "^3.31.0"
 
 electron@^1.4.15:
-  version "1.4.15"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.4.15.tgz#eaccafe3f55ade02a746b706ac14b43db6c7ccf8"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.5.0.tgz#d783d5ca8c89fd781b04c6ca75652c55bbdb80d5"
   dependencies:
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
@@ -2367,7 +2367,7 @@ gulp-uglify@^2.0.1:
     uglify-save-license "^0.4.1"
     vinyl-sourcemaps-apply "^0.2.0"
 
-gulp-util@>=3.0.0, gulp-util@^3.0.0, gulp-util@^3.0.5, gulp-util@^3.0.7:
+gulp-util@>=3.0.0, gulp-util@^3.0.0, gulp-util@^3.0.4, gulp-util@^3.0.5, gulp-util@^3.0.7:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
   dependencies:
@@ -2402,6 +2402,14 @@ gulp-util@^2.2.14:
     multipipe "^0.1.0"
     through2 "^0.5.0"
     vinyl "^0.2.1"
+
+gulp-yarn@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/gulp-yarn/-/gulp-yarn-0.0.5.tgz#b63555327420e91070cd8203af921bb5174f933f"
+  dependencies:
+    gulp-util "^3.0.4"
+    through2 "^2.0.0"
+    which "^1.0.9"
 
 gulp@^3.9.1:
   version "3.9.1"
@@ -3520,8 +3528,8 @@ no-case@^2.2.0:
     lower-case "^1.1.1"
 
 node-abi@^1.0.3:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-1.1.0.tgz#ec17cc17204dbbd30aa7916ae36515e928ae93bf"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-1.2.1.tgz#4b37303ee67d8f06ea6b594953c09dad05eabcd6"
 
 node-emoji@^1.5.1:
   version "1.5.1"
@@ -4039,10 +4047,11 @@ readable-stream@1.1, readable-stream@^1.1.8, readable-stream@~1.1.9:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2.0.0, readable-stream@^2.0.2, readable-stream@~2.0.0, readable-stream@~2.0.5:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
+readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.1.0, readable-stream@^2.1.5:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
   dependencies:
+    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -4050,11 +4059,10 @@ readable-stream@^2.0.0, readable-stream@^2.0.2, readable-stream@~2.0.0, readable
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-"readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.5, readable-stream@^2.1.0, readable-stream@^2.1.5:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
+readable-stream@~2.0.0, readable-stream@~2.0.5:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
   dependencies:
-    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -4278,8 +4286,8 @@ run-series@^1.1.1:
   resolved "https://registry.yarnpkg.com/run-series/-/run-series-1.1.4.tgz#89a73ddc5e75c9ef8ab6320c0a1600d6a41179b9"
 
 rxjs@^5.0.0-rc.5:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.0.3.tgz#fc8bdf464ebf938812748e4196788f392fef9754"
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.1.0.tgz#0aa9018b7f440b505fa42bd742b6738be550e720"
   dependencies:
     symbol-observable "^1.0.1"
 
@@ -4361,7 +4369,7 @@ sntp@1.x.x:
   dependencies:
     hoek "2.x.x"
 
-source-map-support@^0.4.10, source-map-support@^0.4.2:
+source-map-support@^0.4.11, source-map-support@^0.4.2:
   version "0.4.11"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.11.tgz#647f939978b38535909530885303daf23279f322"
   dependencies:
@@ -4914,7 +4922,7 @@ which-module@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/which-module/-/which-module-1.0.0.tgz#bba63ca861948994ff307736089e3b96026c2a4f"
 
-which@1, which@^1.2.12:
+which@1, which@^1.0.9, which@^1.2.12:
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/which/-/which-1.2.12.tgz#de67b5e450269f194909ef23ece4ebe416fa1192"
   dependencies:
