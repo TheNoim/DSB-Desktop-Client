@@ -19,4 +19,4 @@ install:
   - ./node_modules/.bin/electron-rebuild .
 script:
   - ./node_modules/.bin/gulp
-  - ./node_modules/.bin/build -mwl --x64
+  - ./node_modules/.bin/build -mwl --x64 --publish --draft
