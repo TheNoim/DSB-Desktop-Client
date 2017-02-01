@@ -8,11 +8,11 @@ os:
   - osx
   - linux
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gnu-tar graphicsmagick xz rpm
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y icnsutils graphicsmagick xz-utils
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:ubuntu-wine/ppa -y
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install wine1.8 winetricks -y
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gnu-tar graphicsmagick xz rpm; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y icnsutils graphicsmagick xz-utils; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:ubuntu-wine/ppa -y; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install wine1.8 winetricks -y; fi
 install:
   - yarn
   - npm install bower -g
@@ -20,5 +20,5 @@ install:
   - ./node_modules/.bin/electron-rebuild .
 script:
   - ./node_modules/.bin/gulp
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./node_modules/.bin/build -m --x64 --publish --draft
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./node_modules/.bin/build -wl --x64 --publish --draft
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./node_modules/.bin/build -m --x64 --publish --draft; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./node_modules/.bin/build -wl --x64 --publish --draft; fi
