@@ -19,9 +19,9 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y icnsutils graphicsmagick xz-utils yarn; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install winehq-devel winetricks -y; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install mono-complete ca-certificates-mono -y; fi
+  - npm install bower -g
 install:
   - yarn
-  - npm install bower -g
   - bower install
   - ./node_modules/.bin/electron-rebuild .
 script:
