@@ -21,7 +21,8 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install mono-complete ca-certificates-mono -y; fi
 install:
   - yarn
-  - ./node_modules/.bin/bower install
+  - npm install bower -g
+  - bower install
   - ./node_modules/.bin/electron-rebuild .
 script:
   - ./node_modules/.bin/gulp
