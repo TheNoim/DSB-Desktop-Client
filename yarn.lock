@@ -1580,6 +1580,13 @@ electron-builder-http@12.1.0, electron-builder-http@~12.1.0:
     debug "2.6.0"
     fs-extra-p "^3.1.0"
 
+electron-builder-http@12.3.0:
+  version "12.3.0"
+  resolved "https://registry.yarnpkg.com/electron-builder-http/-/electron-builder-http-12.3.0.tgz#5a75e3683e4c1a8ef093f353d3298342c875d2c0"
+  dependencies:
+    debug "2.6.0"
+    fs-extra-p "^3.1.0"
+
 electron-builder-util@12.1.0:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/electron-builder-util/-/electron-builder-util-12.1.0.tgz#2d2ef87ba54710cc35caa1a0d3b80dcc4f52eb30"
@@ -1752,6 +1759,17 @@ electron-rebuild@^1.5.7:
     rimraf "^2.5.0"
     spawn-rx "^2.0.7"
     yargs "^3.31.0"
+
+electron-updater@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-1.4.1.tgz#4c3f2b0792ad7d0163af66de3dd3ab10256d09ff"
+  dependencies:
+    bluebird-lst-c "^1.0.6"
+    electron-builder-http "12.3.0"
+    fs-extra-p "^3.1.0"
+    js-yaml "^3.7.0"
+    semver "^5.3.0"
+    source-map-support "^0.4.11"
 
 electron@^1.4.15:
   version "1.5.0"
@@ -3900,6 +3918,10 @@ pretty-bytes@^1.0.2:
 pretty-hrtime@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
+
+prettysize@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/prettysize/-/prettysize-0.0.3.tgz#14afff6a645e591a4ddf1c72919c23b4146181a1"
 
 private@^0.1.6:
   version "0.1.6"

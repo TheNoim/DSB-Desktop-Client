@@ -7,6 +7,8 @@ const {ipcRenderer} = require('electron');
 const {Socket} = require('electron-ipc-socket');
 const AutoLaunch = require('auto-launch');
 const socket = Socket('MainSocket', ipcRenderer);
+const pretty = require('prettysize');
+
 socket.open();
 
 if (isDev) {
@@ -28,7 +30,12 @@ app.controller('DSBController', ($scope, $timeout, $rootScope, $mdToast, $mdDial
     };
     $scope.loaded = false;
     $scope.loading = false;
+    $scope.firstBootstrap = true;
     $scope.bootstrap = () => {
+        if ($scope.firstBootstrap){
+            $scope.firstBootstrap = false;
+            $scope.checkUpdateAvailable(false);
+        }
         $scope.checkDialog(() => {
             $scope.loading = true;
             $scope.ProgressBar = true;
@@ -82,11 +89,18 @@ app.controller('DSBController', ($scope, $timeout, $rootScope, $mdToast, $mdDial
             });
         });
     };
+
     socket.on('event:DSB_PROGRESS', (DATA) => {
         console.log("[Client] Progress...", DATA);
         $scope.ProgressValue = percentage.from(DATA.PROGRESS, DATA.MAX);
         $scope.safeApply();
     });
+
+    socket.on('event:UPDATE_AVAILABLE', (info) => {
+        console.log(`[Client] Update new update information's`);
+        $scope.UpdateInfo = info;
+    });
+
     $scope.applyFilter = function () {
         $scope.Plans = JSON.parse(JSON.stringify($scope.PlanC));
         let klassen = [];
@@ -123,6 +137,88 @@ app.controller('DSBController', ($scope, $timeout, $rootScope, $mdToast, $mdDial
             }
         }
     };
+
+    $scope.UpdateAvailableDialog = () => {
+        $mdDialog.show({
+            templateUrl: 'UpdateAvailableDialog.html',
+            scope: $scope,
+            preserveScope: true,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            fullscreen: true,
+            controller: ($scope, $mdDialog, $mdToast) => {
+                socket.on('event:UPDATE_AVAILABLE', (info) => {
+                    console.log(`[Client] Update new update information's`);
+                    $scope.UpdateInfo = info;
+                    $scope.UpdateUpdateInformations();
+                    $scope.safeApply();
+                });
+                socket.on('event:UPDATER_ERROR', (Payload) => {
+                    let alert = $mdDialog.alert().title(`An error occurred`).textContent(Payload.error).ok('Close');
+                    $mdDialog.show(alert).finally(() => {
+                        alert = null;
+                    });
+                });
+                socket.on('event:UPDATE_DOWNLOADED', () => {
+                    console.log(`[Client] Update downloaded.`);
+                    $scope.finished = true;
+                    $scope.downloading = true;
+                    $scope.safeApply();
+                    socket.send('QUIT_AND_INSTALL');
+                });
+                socket.on('event:UPDATE_DOWNLOAD_PROGRESS', (Payload) => {
+                    $scope.speed = Payload.bytesPerSecond ? pretty(Payload.bytesPerSecond) + "/s" : "0 bytes/s";
+                    $scope.downloading = true;
+                    $scope.DownloadProgress = Payload.percent ? Payload.percent : 0;
+                    $scope.safeApply();
+                });
+                $scope.UpdateUpdateInformations = function () {
+                    if ($scope.UpdateInfo){
+                        $scope.releaseNotes = $scope.UpdateInfo.releaseNotes ? $scope.UpdateInfo.releaseNotes : null;
+                        $scope.releaseName = $scope.UpdateInfo.releaseName ? $scope.UpdateInfo.releaseName : null;
+                        $scope.version = $scope.UpdateInfo.version ? $scope.UpdateInfo.version : null;
+                    } else {
+                        $scope.releaseNotes = "Error";
+                        $scope.releaseName = "Error";
+                        $scope.version = "0.0.0";
+                    }
+                };
+                $scope.nope = function () {
+                    $mdDialog.hide();
+                };
+                $scope.downloadAndInstall = function () {
+                    socket.send('DOWNLOAD_UPDATE', (error, Payload) => {
+                        if (Payload.started) {
+                            $scope.downloading = true;
+                            $scope.safeApply();
+                        } else {
+                            $mdToast.showSimple('Something went wrong.');
+                        }
+                    });
+                };
+                $scope.UpdateUpdateInformations();
+                $scope.downloading = false;
+                $scope.finished = false;
+                $scope.safeApply();
+            }
+        });
+    };
+
+    $scope.checkUpdateAvailable = (button) => {
+        if (socket.isOpen()){
+            socket.send('CHECK_FOR_UPDATE', null, (error, UpdateAvailable) => {
+                console.log(`[Client] Update available: ${UpdateAvailable}`);
+                if (UpdateAvailable) {
+                    $scope.UpdateAvailableDialog();
+                } else {
+                    if (button){
+                        $mdToast.showSimple('No update available.');
+                    }
+                }
+            });
+        }
+    };
+
     $scope.settings = function (callback) {
         $mdDialog.show({
             templateUrl: 'SettingsDialog.html',

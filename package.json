@@ -1,6 +1,6 @@
 {
   "name": "DSB-Desktop-Client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A dsb desktop client",
   "main": "www/main.js",
   "repository": "git@github.com:TheNoim/DSB-Desktop-Client.git",
@@ -15,6 +15,8 @@
     "electron-json-storage": "^3.0.1",
     "electron-packager": "^8.5.1",
     "electron-rebuild": "^1.5.7",
+    "electron-updater": "^1.4.1",
+    "prettysize": "^0.0.3",
     "validator": "^6.2.1",
     "watchjs": "^0.0.0"
   },

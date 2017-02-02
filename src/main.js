@@ -9,12 +9,16 @@ const url = require('url');
 const isDev = require('electron-is-dev');
 const validator = require('validator');
 const fs = require('fs');
+const {autoUpdater} = require('electron-updater');
+autoUpdater.autoDownload = false;
 
 let MainWindow = null;
 let dsb;
 console.log(app.getPath('userData'));
 
 function createWindow() {
+    let GlobalWindowObject = {};
+
     MainWindow = new BrowserWindow({width: 1200, height: 800});
     MainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
@@ -23,6 +27,11 @@ function createWindow() {
     }));
     if (isDev) {
         MainWindow.webContents.openDevTools();
+        autoUpdater.setFeedURL({
+            provider: "github",
+            owner: "TheNoim",
+            repo: "DSB-Desktop-Client"
+        });
     }
     MainWindow.on('closed', () => {
         MainWindow = null;
@@ -78,6 +87,47 @@ function createWindow() {
         fs.unlink(app.getPath('userData') + '/cookie.json', () => {
             console.log("[BACKGROUND] Delete cookie.json successfully!");
         });
+    });
+
+    socket.on('message:CHECK_FOR_UPDATE', (msg) => {
+        autoUpdater.checkForUpdates().then(() => {
+            console.log("[Background] Update available: " + autoUpdater.updateAvailable);
+            msg.reply(autoUpdater.updateAvailable);
+        });
+    });
+
+    socket.on('message:DOWNLOAD_UPDATE', (msg) => {
+        if (autoUpdater.updateAvailable){
+            autoUpdater.downloadUpdate();
+            msg.reply({started: true});
+        } else {
+            msg.reply({started: false});
+        }
+    });
+
+    socket.on('event:QUIT_AND_INSTALL', () => {
+        autoUpdater.quitAndInstall();
+    });
+
+    autoUpdater.on('error', (error) => {
+        console.log("[BACKGROUND] Auto Updater Error: " + error);
+        if (socket.isOpen()) socket.send('UPDATER_ERROR', {error: error});
+    });
+
+    autoUpdater.on('update-available', (info) => {
+        GlobalWindowObject.updateAvailable = true;
+        console.log("[BACKGROUND] Update available.");
+        if (socket.isOpen()) socket.send('UPDATE_AVAILABLE', {info: info});
+    });
+
+    autoUpdater.on('download-progress', (bytesPerSecond, percent, total, transferred) => {
+        console.log(`[BACKGROUND] Download: ${percent} % ${bytesPerSecond} b\\s`);
+        if (socket.isOpen()) socket.send('UPDATE_DOWNLOAD_PROGRESS', {bytesPerSecond: bytesPerSecond, percent: percent, total: total, transferred: transferred});
+    });
+
+    autoUpdater.on('update-downloaded', (info) => {
+        console.log(`[BACKGROUND] Update download finished.`);
+        if (socket.isOpen()) socket.send('UPDATE_DOWNLOADED', {info: info});
     });
 }
 

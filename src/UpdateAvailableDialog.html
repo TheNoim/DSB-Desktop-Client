@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<md-dialog style="background-color: #424242;">
+    <md-dialog-content flex>
+        <md-toolbar md-theme="altTheme" style="background-color: #FFEB3B;">
+            <div class="md-toolbar-tools">
+                <span style="color: black;">Update available</span>
+            </div>
+        </md-toolbar>
+        <md-progress-linear style="background-color: #FFEB3B !important; color: rgba(0,0,0,0) !important;" md-mode="determinate" class="nga-fade nga-fast nga-stagger-fast" ng-if="downloading" value="{{ DownloadProgress }}"></md-progress-linear>
+        <md-content layout-padding ng-if="!downloading" class="nga-fade nga-fast nga-stagger-fast" md-theme="altTheme">
+            <h1 md-theme="altTheme">{{ version }} <a ng-if="releaseName">- {{ releaseName }}</a></h1>
+            <a md-theme="altTheme" ng-if="releaseNotes">
+                {{ releaseNotes }}
+            </a>
+            <a md-theme="altTheme" ng-if="!releaseNotes">
+                No Release notes
+            </a>
+        </md-content>
+        <md-content layout-padding ng-if="downloading" class="nga-fade nga-fast nga-stagger-fast" md-theme="altTheme">
+            <nothing ng-if="!finished" class="nga-fade nga-fast nga-stagger-fast">Downloading <a ng-if="speed">{{ speed }}</a></nothing>
+            <nothing ng-if="finished" class="nga-fade nga-fast nga-stagger-fast">Download finished. Please wait the client will restart...</nothing>
+        </md-content>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button md-theme="altTheme" ng-click="nope()" ng-disabled="downloading">I hate updates</md-button>
+        <md-button style="background-color: #FFEB3B !important;" md-theme="altTheme" ng-click="downloadAndInstall()" ng-disabled="downloading">Download & Install</md-button>
+    </md-dialog-actions>
+</md-dialog>
