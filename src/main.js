@@ -10,7 +10,11 @@ const isDev = require('electron-is-dev');
 const validator = require('validator');
 const fs = require('fs');
 const {autoUpdater} = require('electron-updater');
+const request = require('request');
 autoUpdater.autoDownload = false;
+autoUpdater.requestHeaders = {
+    'User-Agent': 'request'
+};
 
 let MainWindow = null;
 let dsb;
@@ -71,7 +75,7 @@ function createWindow() {
         }
     });
     socket.on('message:QUERY_DSB', (msg) => {
-        if (dsb){
+        if (dsb) {
             console.log("[Background] QUERY_DSB");
             console.log(JSON.stringify(dsb));
             dsb.getParsed((error, Plans) => {
@@ -92,13 +96,53 @@ function createWindow() {
     socket.on('message:CHECK_FOR_UPDATE', (msg) => {
         autoUpdater.checkForUpdates().then(() => {
             console.log("[Background] Update available: " + autoUpdater.updateAvailable);
+            console.log(autoUpdater);
             msg.reply(autoUpdater.updateAvailable);
         });
     });
 
+    socket.on('message:GET_UPDATE_INFO', (msg) => {
+        let ReleaseUrl;
+        if (GlobalWindowObject.info) {
+            ReleaseUrl = `https://api.github.com/repos/TheNoim/DSB-Desktop-Client/releases/tags/v${GlobalWindowObject.info.version}`;
+        } else {
+            ReleaseUrl = `https://api.github.com/repos/TheNoim/DSB-Desktop-Client/releases/latest`;
+        }
+        console.log('[Background] Request ' + ReleaseUrl);
+        request(ReleaseUrl, {
+            headers: {
+                'User-Agent': 'request'
+            }
+        }, (error, response, body) => {
+            console.log(`[Background] Request finished.`);
+            if (!error && response.statusCode == 200) {
+                let ReleaseJson;
+                try {
+                    ReleaseJson = JSON.parse(body);
+                } catch (e) {
+                    msg.reply({
+                        version: GlobalWindowObject.info.version ? GlobalWindowObject.info.version : "Unknown",
+                        changelog: "Changelog parsing error"
+                    });
+                    return;
+                }
+                msg.reply({
+                    version: GlobalWindowObject.info.version ? GlobalWindowObject.info.version : "Unknown",
+                    changelog: ReleaseJson.body ? ReleaseJson.body : "Failed to load changelog"
+                });
+            } else {
+                msg.reply({
+                    version: GlobalWindowObject.info.version ? GlobalWindowObject.info.version : "Unknown",
+                    changelog: "Failed to load changelog - Status " + response.statusCode
+                });
+            }
+        });
+    });
+
     socket.on('message:DOWNLOAD_UPDATE', (msg) => {
-        if (autoUpdater.updateAvailable){
+        if (autoUpdater.updateAvailable) {
             autoUpdater.downloadUpdate();
+            console.log(JSON.stringify(autoUpdater.downloadPromise));
             msg.reply({started: true});
         } else {
             msg.reply({started: false});
@@ -115,14 +159,19 @@ function createWindow() {
     });
 
     autoUpdater.on('update-available', (info) => {
-        GlobalWindowObject.updateAvailable = true;
-        console.log("[BACKGROUND] Update available.");
+        GlobalWindowObject.info = info;
+        console.log("[BACKGROUND] Update available. " + JSON.stringify(info));
         if (socket.isOpen()) socket.send('UPDATE_AVAILABLE', {info: info});
     });
 
-    autoUpdater.on('download-progress', (bytesPerSecond, percent, total, transferred) => {
-        console.log(`[BACKGROUND] Download: ${percent} % ${bytesPerSecond} b\\s`);
-        if (socket.isOpen()) socket.send('UPDATE_DOWNLOAD_PROGRESS', {bytesPerSecond: bytesPerSecond, percent: percent, total: total, transferred: transferred});
+    autoUpdater.on('download-progress', (progressObj) => {
+        console.log(`[BACKGROUND] Download: ${progressObj.percent} % ${progressObj.bytesPerSecond} b\\s`);
+        if (socket.isOpen()) socket.send('UPDATE_DOWNLOAD_PROGRESS', {
+            bytesPerSecond: progressObj.bytesPerSecond,
+            percent: progressObj.percent,
+            total: progressObj.total,
+            transferred: progressObj.transferred
+        });
     });
 
     autoUpdater.on('update-downloaded', (info) => {
@@ -144,11 +193,11 @@ app.on('activate', () => {
 });
 
 function setUpDSBEvents(socket) {
-    if (dsb){
+    if (dsb) {
         const Events = dsb.Events;
         Events.on('progress', (MAX, PROGRESS) => {
             console.log('[Background] Progress - ' + PROGRESS);
-            if (!socket.isOpen()){
+            if (!socket.isOpen()) {
                 socket.open();
             }
             socket.send('DSB_PROGRESS', {MAX: MAX, PROGRESS: PROGRESS});

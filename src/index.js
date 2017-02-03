@@ -147,13 +147,12 @@ app.controller('DSBController', ($scope, $timeout, $rootScope, $mdToast, $mdDial
             escapeToClose: false,
             fullscreen: true,
             controller: ($scope, $mdDialog, $mdToast) => {
-                socket.on('event:UPDATE_AVAILABLE', (info) => {
-                    console.log(`[Client] Update new update information's`);
+                socket.on('event:UPDATE_AVAILABLE', (error, info) => {
+                    console.log(`[Client] Update new update information's`, info);
                     $scope.UpdateInfo = info;
-                    $scope.UpdateUpdateInformations();
                     $scope.safeApply();
                 });
-                socket.on('event:UPDATER_ERROR', (Payload) => {
+                socket.on('event:UPDATER_ERROR', (error, Payload) => {
                     let alert = $mdDialog.alert().title(`An error occurred`).textContent(Payload.error).ok('Close');
                     $mdDialog.show(alert).finally(() => {
                         alert = null;
@@ -166,40 +165,41 @@ app.controller('DSBController', ($scope, $timeout, $rootScope, $mdToast, $mdDial
                     $scope.safeApply();
                     socket.send('QUIT_AND_INSTALL');
                 });
-                socket.on('event:UPDATE_DOWNLOAD_PROGRESS', (Payload) => {
+                socket.on('event:UPDATE_DOWNLOAD_PROGRESS', (error, Payload) => {
+                    $scope.DownloadProgressMode = "determinate";
+                    console.log(`[Client] Download progress: `, Payload);
                     $scope.speed = Payload.bytesPerSecond ? pretty(Payload.bytesPerSecond) + "/s" : "0 bytes/s";
                     $scope.downloading = true;
                     $scope.DownloadProgress = Payload.percent ? Payload.percent : 0;
                     $scope.safeApply();
                 });
-                $scope.UpdateUpdateInformations = function () {
-                    if ($scope.UpdateInfo){
-                        $scope.releaseNotes = $scope.UpdateInfo.releaseNotes ? $scope.UpdateInfo.releaseNotes : null;
-                        $scope.releaseName = $scope.UpdateInfo.releaseName ? $scope.UpdateInfo.releaseName : null;
-                        $scope.version = $scope.UpdateInfo.version ? $scope.UpdateInfo.version : null;
-                    } else {
-                        $scope.releaseNotes = "Error";
-                        $scope.releaseName = "Error";
-                        $scope.version = "0.0.0";
-                    }
-                };
                 $scope.nope = function () {
                     $mdDialog.hide();
                 };
                 $scope.downloadAndInstall = function () {
-                    socket.send('DOWNLOAD_UPDATE', (error, Payload) => {
-                        if (Payload.started) {
-                            $scope.downloading = true;
-                            $scope.safeApply();
-                        } else {
-                            $mdToast.showSimple('Something went wrong.');
-                        }
+                    $scope.DownloadProgressMode = "indeterminate";
+                    $scope.safeApply(() => {
+                        socket.send('DOWNLOAD_UPDATE', (error, Payload) => {
+                            if (Payload.started) {
+                                $scope.downloading = true;
+                                $scope.safeApply();
+                            } else {
+                                $mdToast.showSimple('Something went wrong.');
+                            }
+                        });
                     });
                 };
-                $scope.UpdateUpdateInformations();
                 $scope.downloading = false;
                 $scope.finished = false;
+                $scope.LoadingReleaseData = true;
                 $scope.safeApply();
+                socket.send('GET_UPDATE_INFO', (error, Payload) => {
+                    console.log(`[Client] Received update info.`, Payload);
+                    $scope.version = Payload.version;
+                    $scope.releaseNotes = Payload.changelog;
+                    $scope.LoadingReleaseData = false;
+                    $scope.safeApply();
+                });
             }
         });
     };
