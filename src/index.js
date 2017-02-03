@@ -16,7 +16,7 @@ if (isDev) {
     debugMenu.install();
 }
 // Client
-const app = angular.module('DSBApp', ['ngMaterial', 'ngAnimate', 'md.data.table']);
+const app = angular.module('DSBApp', ['ngMaterial', 'ngAnimate', 'md.data.table', 'hc.marked']);
 app.controller('DSBController', ($scope, $timeout, $rootScope, $mdToast, $mdDialog) => {
     $scope.safeApply = function (fn) {
         const phase = this.$root.$$phase;
@@ -351,6 +351,10 @@ app.config(function ($mdThemingProvider) {
         .primaryPalette('yellow')
         .dark();
 });
+
+app.config(['markedProvider', function (markedProvider) {
+    markedProvider.setOptions({gfm: true, tables: true});
+}]);
 
 function copy(what) {
     return JSON.parse(JSON.stringify(what))

@@ -9,9 +9,7 @@
         <md-progress-linear style="background-color: #FFEB3B !important; color: rgba(0,0,0,0) !important;" md-mode="{{ DownloadProgressMode }}" class="nga-fade nga-fast nga-stagger-fast" ng-if="downloading" value="{{ DownloadProgress }}"></md-progress-linear>
         <md-content layout-padding ng-if="!downloading && !LoadingReleaseData" class="nga-fade nga-fast nga-stagger-fast" md-theme="altTheme" flex="grow">
             <h1 md-theme="altTheme" flex>{{ version }}</h1>
-            <a md-theme="altTheme" ng-if="releaseNotes" flex>
-                {{ releaseNotes }}
-            </a>
+            <div md-theme="altTheme" ng-if="releaseNotes" marked="releaseNotes" flex></div>
             <a md-theme="altTheme" ng-if="!releaseNotes" flex>
                 No changelog
             </a>

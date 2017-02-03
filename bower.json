@@ -28,6 +28,7 @@
     "angular-material-data-table": "^0.10.10",
     "percentage-calc": "^0.0.1",
     "material-design-icons": "^3.0.1",
-    "angular-animate-css": "^0.0.4"
+    "angular-animate-css": "^0.0.4",
+    "angular-marked": "^1.2.2"
   }
 }
