@@ -1,6 +1,6 @@
 {
   "name": "DSB-Desktop-Client",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A dsb desktop client",
   "main": "src/main.js",
   "repository": "git@github.com:TheNoim/DSB-Desktop-Client.git",

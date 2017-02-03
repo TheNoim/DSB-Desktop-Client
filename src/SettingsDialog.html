@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <md-dialog style="background-color: #424242;">
-    <md-dialog-content flex>
-        <md-toolbar style="background-color: #FFEB3B;">
+    <md-dialog-content layout="column" flex>
+        <md-toolbar style="background-color: #FFEB3B;" flex="none">
             <div class="md-toolbar-tools">
                 <span style="color: black;">Settings</span>
             </div>
         </md-toolbar>
-        <md-content layout-padding flex style="background-color: #424242;" layout="column">
+        <md-content layout-padding style="background-color: #424242;" layout="column">
             <md-input-container md-theme="docs-dark">
                 <label>Host (required)</label>
                 <input ng-model="host">
-            </md-input-container><span md-theme="altTheme">You need to enter your shool host. Like: <code>myschool.com</code> No URL, only the domain.</span>
+            </md-input-container>
+            <span md-theme="altTheme">You need to enter your shool host. Like: <code>myschool.com</code> No URL, only the domain.</span>
             <md-input-container md-theme="docs-dark">
                 <label>Username (required)</label>
                 <input ng-model="username">
@@ -28,13 +29,16 @@
             </md-chips>
             <md-chips md-theme="docs-dark" ng-model="klassenfilter" placeholder="Klassen">
             </md-chips>
-            <md-switch md-theme="altTheme" ng-model="autoStart" ng-true-value="true" ng-false-value="false">Auto Start</md-switch>
-            <md-switch md-theme="altTheme" ng-model="hideAutoStart" ng-true-value="true" ng-false-value="false">Hidden Auto Start</md-switch>
+            <md-switch md-theme="altTheme" ng-model="autoStart" ng-true-value="true" ng-false-value="false">Auto Start
+            </md-switch>
+            <md-switch md-theme="altTheme" ng-model="hideAutoStart" ng-true-value="true" ng-false-value="false">Hidden
+                Auto Start
+            </md-switch>
         </md-content>
     </md-dialog-content>
     <md-dialog-actions flex>
         <md-button md-theme="altTheme" ng-click="checkUpdateAvailable(true)">Check for Update</md-button>
         <md-button md-theme="altTheme" ng-click="cancel()">Cancel</md-button>
-        <md-button md-theme="altTheme" style="background-color: #FFEB3B !important;" ng-click="save()">Save</md-button>
+        <md-button md-theme="altTheme" style="background-color: #FFEB3B !important; color: black;" ng-click="save()">Save</md-button>
     </md-dialog-actions>
 </md-dialog>
