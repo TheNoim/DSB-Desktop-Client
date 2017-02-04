@@ -28,6 +28,6 @@ install:
   - travis_wait 30 bower install
   - ./node_modules/.bin/electron-rebuild .
 script:
-  - ./node_modules/.bin/gulp
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./node_modules/.bin/build -m --x64 --publish="always" --draft; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./node_modules/.bin/build -wl --x64 --publish="always" --draft; fi
+  - travis_wait 30 ./node_modules/.bin/gulp
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then travis_wait 30 ./node_modules/.bin/build -m --x64 --publish="always" --draft; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then travis_wait 30 ./node_modules/.bin/build -wl --x64 --publish="always" --draft; fi
