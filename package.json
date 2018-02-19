@@ -18,7 +18,7 @@
     "electron-updater": "^1.4.1",
     "prettysize": "^0.0.3",
     "request": "^2.79.0",
-    "validator": "^6.2.1",
+    "validator": "^9.4.1",
     "watchjs": "^0.0.0"
   },
   "devDependencies": {
